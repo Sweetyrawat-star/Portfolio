@@ -13,14 +13,14 @@ class ContactSection extends StatelessWidget {
       // this height only for demo
       // height: 500,
       width: double.infinity,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color(0xFFE8F0F9),
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage("assets/images/bg_img_2.png"),
         ),
       ),
-      child: Column(
+      child: const Column(
         children: [
           SizedBox(height: kDefaultPadding * 2.5),
           SectionTitle(
@@ -42,10 +42,10 @@ class ContactBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      constraints: BoxConstraints(maxWidth: 1110),
-      margin: EdgeInsets.only(top: kDefaultPadding * 2),
-      padding: EdgeInsets.all(kDefaultPadding * 3),
-      decoration: BoxDecoration(
+      constraints: const BoxConstraints(maxWidth: 1110),
+      margin: const EdgeInsets.only(top: kDefaultPadding * 2),
+      padding: const EdgeInsets.all(kDefaultPadding * 3),
+      decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(20),
@@ -58,27 +58,27 @@ class ContactBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               SocalCard(
-                color: Color(0xFFD9FFFC),
+                color: const Color(0xFFD9FFFC),
                 iconSrc: "assets/images/skype.png",
-                name: 'TheFlutterWay',
+                name: 'Skype',
                 press: () {},
               ),
               SocalCard(
-                color: Color(0xFFE4FFC7),
-                iconSrc: "assets/images/whatsapp.png",
-                name: 'TheFlutterWay',
+                color: const Color(0xFFE4FFC7),
+                iconSrc: "assets/images/fiverr.png",
+                name: 'Fiverr',
                 press: () {},
               ),
               SocalCard(
-                color: Color(0xFFE8F0F9),
-                iconSrc: "assets/images/messanger.png",
-                name: 'TheFlutterWay',
+                color: const Color(0xFFE8F0F9),
+                iconSrc: "assets/images/linkdein.png",
+                name: 'Linkdein',
                 press: () {},
               ),
             ],
           ),
-          SizedBox(height: kDefaultPadding * 2),
-          ContactForm(),
+          const SizedBox(height: kDefaultPadding * 2),
+          const ContactForm(),
         ],
       ),
     );

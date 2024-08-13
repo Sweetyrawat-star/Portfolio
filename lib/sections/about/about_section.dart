@@ -1,6 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter/services.dart' show ByteData, rootBundle;
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'dart:io' as io;
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:html' as html;
 import '../../components/default_button.dart';
 import '../../components/my_outline_button.dart';
 import '../../constants.dart';
@@ -8,15 +13,51 @@ import 'components/about_section_text.dart';
 import 'components/about_text_with_sign.dart';
 import 'components/experience_card.dart';
 
-class AboutSection extends StatelessWidget {
+class AboutSection extends StatefulWidget {
+  @override
+  State<AboutSection> createState() => _AboutSectionState();
+}
+
+class _AboutSectionState extends State<AboutSection> {
+  Future<void> downloadFile() async {
+    try {
+      final ByteData data = await rootBundle.load('assets/resume/Resume.pdf');
+      if (kIsWeb) {
+        final blob = html.Blob([data.buffer.asUint8List()], 'application/pdf');
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        final anchor = html.AnchorElement(href: url)
+          ..setAttribute("download", "resume.pdf")
+          ..click();
+        html.Url.revokeObjectUrl(url);
+      } else {
+        String path;
+        if (io.Platform.isAndroid || io.Platform.isIOS) {
+          final directory = await getApplicationDocumentsDirectory();
+          path = directory.path;
+        } else if (io.Platform.isWindows || io.Platform.isLinux || io.Platform.isMacOS) {
+          final directory = await getDownloadsDirectory();
+          path = directory!.path;
+        } else {
+          throw UnsupportedError('Unsupported platform');
+        }
+        final file = io.File('$path/resume.pdf');
+        await file.writeAsBytes(data.buffer.asUint8List());
+        print('Resume downloaded: ${file.path}');
+      }
+    } catch (e) {
+      print('Error downloading file: $e');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
-      constraints: BoxConstraints(maxWidth: 1110),
+      margin: const EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
+      constraints: const BoxConstraints(maxWidth: 1110),
       child: Column(
         children: [
-          Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               AboutTextWithSign(),
@@ -30,12 +71,12 @@ class AboutSection extends StatelessWidget {
               Expanded(
                 child: AboutSectionText(
                   text:
-                  "I am a Passionate Cross Platform Application Developer with 4 Years of experience with skills in Dart and FlutterFramework. I am very eager to write android/IOS/Web/Windows applications following best code Practices, Architecture, tools, and technologies.",
+                      "I am a Passionate Cross Platform Application Developer with 4 Years of experience with skills in Dart and FlutterFramework. I am very eager to write android/IOS/Web/Windows applications following best code Practices, Architecture, tools, and technologies.",
                 ),
               ),
             ],
           ),
-          SizedBox(height: kDefaultPadding * 3),
+          const SizedBox(height: kDefaultPadding * 3),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -44,11 +85,15 @@ class AboutSection extends StatelessWidget {
                 text: "Hire Me!",
                 press: () {},
               ),
-              SizedBox(width: kDefaultPadding * 1.5),
+              const SizedBox(width: kDefaultPadding * 1.5),
               DefaultButton(
                 imageSrc: "assets/images/download.png",
                 text: "Download CV",
-                press: () {},
+                press: () {setState(() {
+                  downloadFile();
+                });
+
+                },
               ),
             ],
           ),

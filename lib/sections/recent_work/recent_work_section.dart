@@ -11,13 +11,13 @@ class RecentWorkSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: kDefaultPadding * 6),
+      margin: const EdgeInsets.only(top: kDefaultPadding * 6),
       width: double.infinity,
       // just for demo
       // height: 600,
       decoration: BoxDecoration(
-        color: Color(0xFFF7E8FF).withOpacity(0.3),
-        image: DecorationImage(
+        color: const Color(0xFFF7E8FF).withOpacity(0.3),
+        image: const DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage("assets/images/recent_work_bg.png"),
         ),
@@ -28,12 +28,12 @@ class RecentWorkSection extends StatelessWidget {
             offset: Offset(0, -80),
             child: HireMeCard(),
           ),
-          SectionTitle(
-            title: "Recent Woorks",
+          const SectionTitle(
+            title: "Recent Works",
             subTitle: "My Strong Arenas",
             color: Color(0xFFFFB100),
           ),
-          SizedBox(height: kDefaultPadding * 1.5),
+          const SizedBox(height: kDefaultPadding * 1.5),
           SizedBox(
             width: 1110,
             child: Wrap(
@@ -45,7 +45,7 @@ class RecentWorkSection extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(height: kDefaultPadding * 5),
+          const SizedBox(height: kDefaultPadding * 5),
         ],
       ),
     );

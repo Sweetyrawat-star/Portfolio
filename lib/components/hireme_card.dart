@@ -11,7 +11,7 @@ class HireMeCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(kDefaultPadding * 2),
+      padding: const EdgeInsets.all(kDefaultPadding * 2),
       constraints: BoxConstraints(maxWidth: 1110),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -25,14 +25,14 @@ class HireMeCard extends StatelessWidget {
             height: 80,
             width: 80,
           ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: SizedBox(
               height: 80,
               child: VerticalDivider(),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

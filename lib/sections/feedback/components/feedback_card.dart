@@ -5,7 +5,7 @@ import '../../../constants.dart';
 import '../../../models/Feedback.dart';
 
 class FeedbackCard extends StatefulWidget {
-  const FeedbackCard({
+  const FeedbackCard({super.key,
     this.index,
   });
 
@@ -16,7 +16,7 @@ class FeedbackCard extends StatefulWidget {
 }
 
 class _FeedbackCardState extends State<FeedbackCard> {
-  Duration duration = Duration(milliseconds: 200);
+  Duration duration = const Duration(milliseconds: 200);
   bool isHover = false;
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,8 @@ class _FeedbackCardState extends State<FeedbackCard> {
       },
       child: AnimatedContainer(
         duration: duration,
-        margin: EdgeInsets.only(top: kDefaultPadding * 3),
-        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+        margin: const EdgeInsets.only(top: kDefaultPadding * 3),
+        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
         height: 350,
         width: 350,
         decoration: BoxDecoration(
@@ -42,7 +42,7 @@ class _FeedbackCardState extends State<FeedbackCard> {
         child: Column(
           children: [
             Transform.translate(
-              offset: Offset(0, -55),
+              offset: const Offset(0, -55),
               child: AnimatedContainer(
                 duration: duration,
                 height: 100,
@@ -52,14 +52,14 @@ class _FeedbackCardState extends State<FeedbackCard> {
                   border: Border.all(color: Colors.white, width: 10),
                   boxShadow: [if (!isHover) kDefaultCardShadow],
                   image: DecorationImage(
-                    image: AssetImage(feedbacks[widget.index!].userPic!),
+                    image: AssetImage(feedbacks[widget.index!].userPic!),fit: BoxFit.cover
                   ),
                 ),
               ),
             ),
             Text(
               feedbacks[widget.index!].review!,
-              style: TextStyle(
+              style: const TextStyle(
                 color: kTextColor,
                 fontSize: 18,
                 fontWeight: FontWeight.w300,
@@ -67,10 +67,10 @@ class _FeedbackCardState extends State<FeedbackCard> {
                 height: 1.5,
               ),
             ),
-            SizedBox(height: kDefaultPadding * 2),
-            Text(
-              "Ronald Thompson",
-              style: TextStyle(fontWeight: FontWeight.bold),
+            const SizedBox(height: kDefaultPadding * 2),
+             Text(
+              feedbacks[widget.index!].name!,
+              style: const TextStyle(fontWeight: FontWeight.bold),
             )
           ],
         ),

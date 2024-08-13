@@ -10,6 +10,8 @@ import 'constants.dart';
 
 
 class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,12 +19,12 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           children: [
             TopSection(),
-            SizedBox(height: kDefaultPadding * 2),
+            const SizedBox(height: kDefaultPadding * 2),
             AboutSection(),
             ServiceSection(),
             RecentWorkSection(),
             FeedbackSection(),
-            SizedBox(height: kDefaultPadding),
+            const SizedBox(height: kDefaultPadding),
             ContactSection(),
             // This SizeBox just for demo
             // SizedBox(

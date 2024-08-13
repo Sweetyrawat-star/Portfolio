@@ -32,10 +32,10 @@ class _SocalCardState extends State<SocalCard> {
           });
         },
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 200),
-          padding: EdgeInsets.symmetric(
+          duration: const Duration(milliseconds: 200),
+          padding: const EdgeInsets.symmetric(
             vertical: kDefaultPadding / 2,
-            horizontal: kDefaultPadding * 1.5,
+            horizontal: kDefaultPadding * 1.0,
           ),
           decoration: BoxDecoration(
             color: widget.color,
@@ -47,9 +47,9 @@ class _SocalCardState extends State<SocalCard> {
               Image.asset(
                 widget.iconSrc!,
                 height: 80,
-                width: 80,
+                width: 80,fit: BoxFit.contain,
               ),
-              SizedBox(width: kDefaultPadding),
+              const SizedBox(width: kDefaultPadding),
               Text(widget.name!),
             ],
           ),
