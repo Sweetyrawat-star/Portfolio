@@ -5,6 +5,15 @@ const kTextLightColor = Color(0xFF555555);
 
 const kDefaultPadding = 20.0;
 
+
+abstract class SocialLinks {
+  static const String mail = "https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox";
+  static const String twitter = "https://twitter.com/Sweetyrawat";
+  static const String github = "https://github.com/Sweetyrawat-star?tab=repositories";
+  static const String linkedin = "http://www.linkedin.com/in/sweety-rawat-688267188";
+  static const String skype = "https://join.skype.com/invite/u31NbN804imW";
+  static const String fiverr = "https://www.fiverr.com/sweetyflutter?up_rollout=true";
+}
 final kDefaultShadow = BoxShadow(
   offset: Offset(0, 50),
   blurRadius: 50,

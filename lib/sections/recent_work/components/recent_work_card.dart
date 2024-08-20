@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import '../../../components/loading_colorChanger_button.dart';
 import '../../../constants.dart';
 import '../../../models/RecentWork.dart';
 import 'package:universal_html/html.dart' as html;
+
 class RecentWorkCard extends StatefulWidget {
   const RecentWorkCard({
     super.key,
@@ -54,12 +56,15 @@ class _RecentWorkCardState extends State<RecentWorkCard> {
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: kDefaultPadding),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(recentWorks[widget.index!].category!.toUpperCase()),
+                            Text(recentWorks[widget.index!]
+                                .category!
+                                .toUpperCase()),
                             const SizedBox(height: kDefaultPadding / 2),
                             Text(
                               recentWorks[widget.index!].title!,
@@ -73,9 +78,10 @@ class _RecentWorkCardState extends State<RecentWorkCard> {
                                   isExpanded = !isExpanded;
                                 });
                               },
-                              child:  Text(
-                                isExpanded? "Hide Details":"View Details",
-                                style: TextStyle(decoration: TextDecoration.underline),
+                              child: Text(
+                                isExpanded ? "Hide Details" : "View Details",
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline),
                               ),
                             ),
                           ],
@@ -84,45 +90,105 @@ class _RecentWorkCardState extends State<RecentWorkCard> {
                     ),
                   ],
                 ),
-
-                if (isExpanded) ...[
+                /*  if (isExpanded) ...[
                   const SizedBox(height: kDefaultPadding),
                   Text(
                     recentWorks[widget.index!].description!,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: kDefaultPadding / 2),
+                  // Use Wrap widget for dynamic button layout
+                  Wrap(
+                    spacing: kDefaultPadding, // Space between buttons
+                    runSpacing: kDefaultPadding / 2, // Space between rows
+                    children: [
+                      if (recentWorks[widget.index!].andiordLink!.isNotEmpty)
+                        SwipeButton(
+                          onTap: () {
+                            html.window.open(recentWorks[widget.index!].andiordLink!, '_blank');
+                          },
+                          color: Colors.blue,
+                          successColor: Colors.green,
+                          loadingColor: Colors.grey,
+                          buttonText: "Android",
+                        ),
+                      if (recentWorks[widget.index!].iosLink!.isNotEmpty)
+                        SwipeButton(
+                          onTap: () {
+                            html.window.open(recentWorks[widget.index!].iosLink!, '_blank');
+                          },
+                          color: Colors.blue,
+                          successColor: Colors.green,
+                          loadingColor: Colors.grey,
+                          buttonText: "iOS",
+                        ),
+                      if (recentWorks[widget.index!].repoLink!.isNotEmpty)
+                        SwipeButton(
+                          onTap: () {
+                            html.window.open(recentWorks[widget.index!].repoLink!, '_blank');
+                          },
+                          color: Colors.blue,
+                          successColor: Colors.green,
+                          loadingColor: Colors.grey,
+                          buttonText: "Github",
+                        ),
+                    ],
+                  ),
+                ],*/
+                if (isExpanded) ...[
+                  const SizedBox(height: kDefaultPadding),
+                  Text(
+                    recentWorks[widget.index!].description!,
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                  const SizedBox(height: kDefaultPadding),
                   // Add any additional details you'd like to show here.
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: _getButtonAlignment(),
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          html.window.open(recentWorks[widget.index!].andiordLink!, '_blank');
-                        },
-                        child: const Text(
-                          "Android Link",
-                          style: TextStyle(decoration: TextDecoration.underline),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          html.window.open(recentWorks[widget.index!].iosLink!, '_blank');
-                        },
-                        child: const Text(
-                          "Ios Link",
-                          style: TextStyle(decoration: TextDecoration.underline),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          html.window.open(recentWorks[widget.index!].repoLink!, '_blank');
-                        },
-                        child: const Text(
-                          "Github",
-                          style: TextStyle(decoration: TextDecoration.underline),
-                        ),
-                      ),
+                      recentWorks[widget.index!].andiordLink!.isEmpty
+                          ? Container()
+                          : SwipeButton(
+                              onTap: () {
+                                html.window.open(
+                                    recentWorks[widget.index!].andiordLink!,
+                                    '_blank');
+                              },
+                              color: Color(0xFFF08080),
+                              successColor: const Color(
+                                  0xFFFFA07A),
+                              loadingColor:
+                                  Color(0xffCD5C5C),
+                              buttonText:
+                                  "Android",
+                            ),
+                      recentWorks[widget.index!].iosLink!.isEmpty
+                          ? Container()
+                          : SwipeButton(
+                              onTap: () {
+                                // Custom action when swipe is successful
+                                html.window.open(
+                                    recentWorks[widget.index!].iosLink!,
+                                    '_blank');
+                              },
+                              color: Color(0xffFF6347),
+                              successColor: Color(0xffFF7F50),
+                              loadingColor: Colors.grey,
+                              buttonText: "IOS",
+                            ),
+                      recentWorks[widget.index!].repoLink!.isEmpty
+                          ? Container()
+                          : SwipeButton(
+                              onTap: () {
+                                html.window.open(
+                                    recentWorks[widget.index!].repoLink!,
+                                    '_blank');
+                              },
+                              color: Color(0xff778899),
+                              successColor: Color(0xffD3D3D3),
+                              loadingColor: Colors.grey,
+                              buttonText: "Github",
+                            ),
                     ],
                   ),
                 ],
@@ -133,4 +199,17 @@ class _RecentWorkCardState extends State<RecentWorkCard> {
       ),
     );
   }
+
+  MainAxisAlignment _getButtonAlignment() {
+    int buttonCount = [
+      recentWorks[widget.index!].andiordLink!.isNotEmpty,
+      recentWorks[widget.index!].iosLink!.isNotEmpty,
+      recentWorks[widget.index!].repoLink!.isNotEmpty,
+    ].where((linkExists) => linkExists).length;
+
+    return buttonCount <= 1
+        ? MainAxisAlignment.center
+        : MainAxisAlignment.spaceEvenly;
+  }
 }
+
