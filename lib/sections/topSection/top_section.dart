@@ -9,6 +9,9 @@ import 'components/menu.dart';
 import 'components/person_pic.dart';
 
 class TopSection extends StatelessWidget {
+  final Function(int) onMenuItemClicked;
+
+  const TopSection({super.key, required this.onMenuItemClicked});
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -35,7 +38,7 @@ class TopSection extends StatelessWidget {
             ),
             Positioned(
               bottom: 0,
-              child: Menu(),
+              child: Menu(onMenuItemClicked: onMenuItemClicked,),
             ),
           ],
         ),

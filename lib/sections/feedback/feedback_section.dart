@@ -7,6 +7,7 @@ import '../../models/Feedback.dart';
 import 'components/feedback_card.dart';
 
 class FeedbackSection extends StatelessWidget {
+  const FeedbackSection({super.key});
   @override
   Widget build(BuildContext context) {
     return Container(

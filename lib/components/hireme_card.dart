@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../constants.dart';
 import 'default_button.dart';
 
-class HireMeCard extends StatelessWidget {
+class HireMeCard extends StatefulWidget {
   const HireMeCard({
    super.key
   });
 
+  @override
+  State<HireMeCard> createState() => _HireMeCardState();
+}
+
+class _HireMeCardState extends State<HireMeCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -51,10 +57,26 @@ class HireMeCard extends StatelessWidget {
           DefaultButton(
             text: "Hire Me!",
             imageSrc: "assets/images/hand.png",
-            press: () {},
+            press: () {
+              openWhatsApp();
+
+            },
           )
         ],
       ),
     );
+  }
+
+  void openWhatsApp() async {
+    const phoneNumber = "9971069669";
+    final message = Uri.encodeComponent(
+        "Hi,I have interest in your profile. I would like to inquire about a project");
+    final url = 'https://wa.me/$phoneNumber?text=$message';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

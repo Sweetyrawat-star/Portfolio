@@ -1,15 +1,19 @@
+import 'dart:html';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
 import 'package:universal_html/html.dart' as html;
 import '../../components/default_button.dart';
 import '../../components/section_title.dart';
 import '../../constants.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'components/socal_card.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 
 class ContactSection extends StatelessWidget {
+  const ContactSection({super.key}); // Add this line
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -97,6 +101,7 @@ class ContactBox extends StatelessWidget {
           ),
           const SizedBox(height: kDefaultPadding * 2),
           const ContactForm(),
+
         ],
       ),
     );
@@ -156,6 +161,46 @@ class _ContactFormState extends State<ContactForm> {
         ),
       ),
     );}*/
+  void send() {
+    final subject = Uri.encodeComponent("Quotation form a client");
+    final body = Uri.encodeComponent( " Hi Developer, \n\n My name is ${_nameController.text} and my email is ${_emailController.text}"
+        " i want  to build my project and there info is${_descriptionController.text}and it type of ${_projectTypeController.text}"
+        "My budget for this project is  ${_projectBudgetController.text} \n \nThanks \n${_nameController.text}",);
+    final email = _emailController.text;
+
+    final url = 'https://mail.google.com/mail/?view=cm&fs=1&to=$email&su=$subject&body=$body';
+    html.window.open(url, "_blank");
+  }
+/*
+  Future<void> send() async {
+    final Email email = Email(
+      body: " Hi Developer, \n My name is ${_nameController.text} and my email is ${_emailController.text}"
+          " i want  to build my project and there info is${_descriptionController.text}and it type of ${_projectTypeController.text}"
+          " and my budget is ${_projectBudgetController.text} \n Thanks \n${_nameController.text}",
+      subject: "Quotation form a client",
+      recipients: [_emailController.text],
+      bcc: ["sweetyrawat1310@gmail.com"],
+    );
+
+    String platformResponse;
+
+    try {
+      await FlutterEmailSender.send(email);
+      platformResponse = 'success';
+    } catch (error) {
+      print(error);
+      platformResponse = error.toString();
+    }
+
+    if (!mounted) return;
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(platformResponse),
+      ),
+    );
+  }
+*/
 
   @override
   Widget build(BuildContext context) {
@@ -228,8 +273,7 @@ class _ContactFormState extends State<ContactForm> {
                 text: "Contact Me!",
                 press: () {
                   setState(() {
-                  /*  sendMail(recipientEmail: _emailController.text, mailMessage: 'userName: ${_nameController.text} description:${_descriptionController.text}'
-                        ' project Budget:${_projectBudgetController.text} projectType${_projectTypeController.text}');*/
+                 send();
                   });
                 }
               ),

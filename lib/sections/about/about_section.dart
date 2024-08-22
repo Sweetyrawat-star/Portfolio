@@ -5,6 +5,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:io' as io;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
 import '../../components/default_button.dart';
 import '../../components/my_outline_button.dart';
@@ -14,6 +15,7 @@ import 'components/about_text_with_sign.dart';
 import 'components/experience_card.dart';
 
 class AboutSection extends StatefulWidget {
+  const AboutSection({Key? key}) : super(key: key);
   @override
   State<AboutSection> createState() => _AboutSectionState();
 }
@@ -46,6 +48,18 @@ class _AboutSectionState extends State<AboutSection> {
       }
     } catch (e) {
       print('Error downloading file: $e');
+    }
+  }
+  void openWhatsApp() async {
+    const phoneNumber = "9971069669";
+    final message = Uri.encodeComponent(
+        "Hi,I have interest in your profile. I would like to inquire about a project");
+    final url = 'https://wa.me/$phoneNumber?text=$message';
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
   }
 
@@ -83,16 +97,17 @@ class _AboutSectionState extends State<AboutSection> {
               MyOutlineButton(
                 imageSrc: "assets/images/hand.png",
                 text: "Hire Me!",
-                press: () {},
+                press: () {
+                  openWhatsApp();
+
+                },
               ),
               const SizedBox(width: kDefaultPadding * 1.5),
               DefaultButton(
                 imageSrc: "assets/images/download.png",
                 text: "Download CV",
-                press: () {setState(() {
+                press: () {
                   downloadFile();
-                });
-
                 },
               ),
             ],
