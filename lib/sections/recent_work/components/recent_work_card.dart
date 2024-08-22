@@ -80,7 +80,7 @@ class _RecentWorkCardState extends State<RecentWorkCard> {
                               },
                               child: Text(
                                 isExpanded ? "Hide Details" : "View Details",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     decoration: TextDecoration.underline),
                               ),
                             ),

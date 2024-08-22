@@ -15,9 +15,9 @@ required this.size,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
        // Image.asset("assets/images/Logo.png"),
-        Spacer(),
+        const Spacer(),
         GlassContent(size: size),
-        Spacer(flex: 3),
+        const Spacer(flex: 3),
       ],
     );
   }

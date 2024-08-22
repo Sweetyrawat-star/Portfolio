@@ -1,9 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
-
+import 'package:portfolio/components/app_extensions.dart';
 import '../../constants.dart';
+import '../../responsive_layout.dart';
 import 'components/logo_blur_box.dart';
 import 'components/menu.dart';
 import 'components/person_pic.dart';
@@ -12,12 +12,31 @@ class TopSection extends StatelessWidget {
   final Function(int) onMenuItemClicked;
 
   const TopSection({super.key, required this.onMenuItemClicked});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    double maxHeight, minHeight;
+    if (size.width > DeviceType.largeScreenDesktop.getMaxWidth()) {
+      // Web/Desktop
+      maxHeight = 900;
+      minHeight = 700;
+    } else if (size.width > DeviceType.ipad.getMaxWidth()) {
+      // Tablet
+      maxHeight = 600;
+      minHeight = 500;
+    } else {
+      // Mobile
+      maxHeight = 400;
+      minHeight = 300;
+    }
+
     return Container(
       alignment: Alignment.center,
-      constraints: const BoxConstraints(maxHeight: 900, minHeight: 700),
+      constraints: BoxConstraints(
+        maxHeight: maxHeight,
+        minHeight: minHeight,
+      ),
       width: double.infinity,
       decoration: const BoxDecoration(
         image: DecorationImage(
@@ -38,7 +57,9 @@ class TopSection extends StatelessWidget {
             ),
             Positioned(
               bottom: 0,
-              child: Menu(onMenuItemClicked: onMenuItemClicked,),
+              child: Menu(
+                onMenuItemClicked: onMenuItemClicked,
+              ),
             ),
           ],
         ),
