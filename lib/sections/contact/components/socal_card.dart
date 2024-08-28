@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/components/app_extensions.dart';
 
 import '../../../constants.dart';
+import '../../../responsive_layout.dart';
 
 class SocalCard extends StatefulWidget {
   const SocalCard({
@@ -21,8 +23,29 @@ class SocalCard extends StatefulWidget {
 
 class _SocalCardState extends State<SocalCard> {
   bool isHover = false;
+  double ?padding,verticalPadding;
   @override
   Widget build(BuildContext context) {
+
+    Size size = MediaQuery.of(context).size;
+    double minHeight;
+    if (size.width > DeviceType.largeScreenDesktop.getMaxWidth()) {
+      // Web/Desktop
+      minHeight = 200;
+      padding =  kDefaultPadding / 2;
+      verticalPadding = kDefaultPadding * 1.0;
+    } else if (size.width > DeviceType.ipad.getMaxWidth()) {
+      // Tablet
+      minHeight = 200;
+      padding =  kDefaultPadding / 2;
+      verticalPadding = kDefaultPadding * 1.0;
+    } else {
+      // Mobile
+      minHeight = 360;padding =  0;
+      verticalPadding = 0;
+
+    }
+
     return FittedBox(
       child: InkWell(
         onTap: widget.press,
@@ -32,10 +55,11 @@ class _SocalCardState extends State<SocalCard> {
           });
         },
         child: AnimatedContainer(
+          width: minHeight,
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(
-            vertical: kDefaultPadding / 2,
-            horizontal: kDefaultPadding * 1.0,
+          padding: EdgeInsets.symmetric(
+            vertical: padding!,
+           horizontal: verticalPadding!,
           ),
           decoration: BoxDecoration(
             color: widget.color,

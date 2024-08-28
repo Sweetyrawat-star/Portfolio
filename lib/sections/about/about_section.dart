@@ -66,6 +66,7 @@ class _AboutSectionState extends State<AboutSection> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
       constraints: const BoxConstraints(maxWidth: 1110),

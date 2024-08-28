@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio/components/app_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
-
 import '../constants.dart';
+import '../responsive_layout.dart';
 import 'default_button.dart';
 
 class HireMeCard extends StatefulWidget {
-  const HireMeCard({
-   super.key
-  });
+  const HireMeCard({super.key});
 
   @override
   State<HireMeCard> createState() => _HireMeCardState();
@@ -16,53 +15,109 @@ class HireMeCard extends StatefulWidget {
 class _HireMeCardState extends State<HireMeCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(kDefaultPadding * 2),
-      constraints: BoxConstraints(maxWidth: 1110),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [kDefaultShadow],
-      ),
-      child: Row(
-        children: [
-          Image.asset(
-            "assets/images/email.png",
-            height: 80,
-            width: 80,
-          ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            child: SizedBox(
-              height: 80,
-              child: VerticalDivider(),
-            ),
-          ),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Starting New Project?",
-                  style: TextStyle(fontSize: 42, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: kDefaultPadding / 2),
-                Text(
-                  "Get an estimate for the new project",
-                  style: TextStyle(fontWeight: FontWeight.w200),
-                )
-              ],
-            ),
-          ),
-          DefaultButton(
-            text: "Hire Me!",
-            imageSrc: "assets/images/hand.png",
-            press: () {
-              openWhatsApp();
-
-            },
-          )
-        ],
+    Size size = MediaQuery.of(context).size;
+    double maxHeight, minHeight;
+    if (size.width > DeviceType.largeScreenDesktop.getMaxWidth()) {
+      // Web/Desktop
+      maxHeight = 900;
+      minHeight = 700;
+    } else if (size.width > DeviceType.ipad.getMaxWidth()) {
+      // Tablet
+      maxHeight = 600;
+      minHeight = 500;
+    } else {
+      // Mobile
+      maxHeight = 400;
+      minHeight = 300;
+    }
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        padding: const EdgeInsets.all(kDefaultPadding ),
+        constraints: const BoxConstraints(maxWidth: 1110),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [kDefaultShadow],
+        ),
+        child: size.width > DeviceType.ipad.getMaxWidth()
+            ? Row(
+                children: [
+                  Image.asset(
+                    "assets/images/email.png",
+                    height: 80,
+                    width: 80,
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                    child: SizedBox(
+                      height: 80,
+                      child: VerticalDivider(),
+                    ),
+                  ),
+                  const Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Starting New Project?",
+                          style: TextStyle(
+                              fontSize: 42, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: kDefaultPadding / 2),
+                        Text(
+                          "Get an estimate for the new project",
+                          style: TextStyle(fontWeight: FontWeight.w200),
+                        )
+                      ],
+                    ),
+                  ),
+                  DefaultButton(
+                    text: "Hire Me!",
+                    imageSrc: "assets/images/hand.png",
+                    press: () {
+                      openWhatsApp();
+                    },
+                  )
+                ],
+              )
+            : Column(
+                children: [
+                  Row(
+                    children: [
+                      Image.asset(
+                        "assets/images/email.png",
+                        height: 80,
+                        width: 80,
+                      ),
+                      SizedBox(width: 20,),
+                      const Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Starting New Project?",
+                            style: TextStyle(
+                                fontSize: 32, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "Get an estimate for the new project",
+                            style: TextStyle(fontWeight: FontWeight.w200),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20,),
+                  DefaultButton(
+                    text: "Hire Me!",
+                    imageSrc: "assets/images/hand.png",
+                    press: () {
+                      openWhatsApp();
+                    },
+                  )
+                ],
+              ),
       ),
     );
   }

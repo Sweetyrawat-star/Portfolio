@@ -1,16 +1,11 @@
-import 'dart:html';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:universal_html/html.dart' as html;
 import '../../components/default_button.dart';
 import '../../components/section_title.dart';
 import '../../constants.dart';
-
 import 'components/socal_card.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
+
 
 class ContactSection extends StatelessWidget {
   const ContactSection({super.key}); // Add this line
@@ -59,45 +54,42 @@ class ContactBox extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Column(
+      child: Wrap(
+        spacing: kDefaultPadding * 9.5,
+        runSpacing: kDefaultPadding * 1.5,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SocalCard(
-                color: const Color(0xFFD9FFFC),
-                iconSrc: "assets/images/skype.png",
-                name: 'Skype',
-                press: () {
-                  html.window.open(
-                      SocialLinks.skype,
-                      '_blank');
+          SocalCard(
+            color: const Color(0xFFD9FFFC),
+            iconSrc: "assets/images/skype.png",
+            name: 'Skype',
+            press: () {
+              html.window.open(
+                  SocialLinks.skype,
+                  '_blank');
 
-                },
-              ),
-              SocalCard(
-                color: const Color(0xFFE4FFC7),
-                iconSrc: "assets/images/fiverr.png",
-                name: 'Fiverr',
-                press: () {
-                  html.window.open(
-                    SocialLinks.fiverr,
-                    '_blank');
+            },
+          ),
+          SocalCard(
+            color: const Color(0xFFE4FFC7),
+            iconSrc: "assets/images/fiverr.png",
+            name: 'Fiverr',
+            press: () {
+              html.window.open(
+                SocialLinks.fiverr,
+                '_blank');
 
-                },
-              ),
-              SocalCard(
-                color: const Color(0xFFE8F0F9),
-                iconSrc: "assets/images/linkdein.png",
-                name: 'Linkdein',
-                press: () {
-                  html.window.open(
-                      SocialLinks.linkedin,
-                      '_blank');
+            },
+          ),
+          SocalCard(
+            color: const Color(0xFFE8F0F9),
+            iconSrc: "assets/images/linkdein.png",
+            name: 'Linkdein',
+            press: () {
+              html.window.open(
+                  SocialLinks.linkedin,
+                  '_blank');
 
-                },
-              ),
-            ],
+            },
           ),
           const SizedBox(height: kDefaultPadding * 2),
           const ContactForm(),
