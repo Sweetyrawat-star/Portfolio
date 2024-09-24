@@ -96,4 +96,14 @@ List<RecentWork> recentWorks = [
     iosLink: "",
     description:'doctorconnext is basically taking a appointment with doctor and consult free for their disease and symptoms',
   ),
+  RecentWork(
+    id: 8,
+    title: '4everInLove',
+    category:'Mobile App Development',
+    image: 'assets/apps_images/4everInLove.png',
+    repoLink: '',
+    andiordLink: "https://play.google.com/store/apps/details?id=com.f4everinlove.off",
+    iosLink: "https://apps.apple.com/in/app/4everinlove-perfect-match/id6468990355",
+    description:'f4everinlove is basically matrimony app where you can find your soulmate',
+  ),
 ];

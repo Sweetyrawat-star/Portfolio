@@ -29,6 +29,8 @@ class DefaultButton extends StatelessWidget {
       ),
       onPressed: press,
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(imageSrc, height: 40),
           const SizedBox(width: kDefaultPadding),
