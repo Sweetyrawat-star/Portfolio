@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }
               },
             ),
-            const SizedBox(height: kDefaultPadding * 2),
+           // const SizedBox(height: kDefaultPadding * 2),
             AboutSection(key: aboutKey),
             ServiceSection(key: serviceKey),
             RecentWorkSection(key: workKey),

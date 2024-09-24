@@ -5,11 +5,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:io' as io;
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:portfolio/components/app_extensions.dart';
+import 'package:portfolio/components/section_title.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:html' as html;
 import '../../components/default_button.dart';
 import '../../components/my_outline_button.dart';
 import '../../constants.dart';
+import '../../responsive_layout.dart';
 import 'components/about_section_text.dart';
 import 'components/about_text_with_sign.dart';
 import 'components/experience_card.dart';
@@ -36,7 +39,9 @@ class _AboutSectionState extends State<AboutSection> {
         if (io.Platform.isAndroid || io.Platform.isIOS) {
           final directory = await getApplicationDocumentsDirectory();
           path = directory.path;
-        } else if (io.Platform.isWindows || io.Platform.isLinux || io.Platform.isMacOS) {
+        } else if (io.Platform.isWindows ||
+            io.Platform.isLinux ||
+            io.Platform.isMacOS) {
           final directory = await getDownloadsDirectory();
           path = directory!.path;
         } else {
@@ -50,6 +55,7 @@ class _AboutSectionState extends State<AboutSection> {
       print('Error downloading file: $e');
     }
   }
+
   void openWhatsApp() async {
     const phoneNumber = "9971069669";
     final message = Uri.encodeComponent(
@@ -63,7 +69,6 @@ class _AboutSectionState extends State<AboutSection> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -72,25 +77,60 @@ class _AboutSectionState extends State<AboutSection> {
       constraints: const BoxConstraints(maxWidth: 1110),
       child: Column(
         children: [
-          const Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              AboutTextWithSign(),
-              Expanded(
-                child: AboutSectionText(
-                  text:
-                      "Flutter developer with 4 of experience in Flutter development. My expertise at UI design, proficient state management, and seamless cross-platform app deployment. I have a proven track record of consistently delivering high-quality, user-friendly applications on schedule. My skills and experience align perfectly with the needs of this position, ensuring successful development and deployment of cutting-edge mobile applications.",
-                ),
+          size.width < DeviceType.smallScreenLaptop.getMaxWidth()
+              ? const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SectionTitle(
+                      color: Colors.purple,
+                      title: "About My Story",
+                      subTitle: "My Experience",
+                    ),
+                    SizedBox(height: kDefaultPadding * 1.5),
+                    AboutSectionText(
+                      text:
+                          "Flutter developer with 4 of experience in Flutter development. My expertise at UI design, proficient state management, and seamless cross-platform app deployment. I have a proven track record of consistently delivering high-quality, user-friendly applications on schedule. My skills and experience align perfectly with the needs of this position, ensuring successful development and deployment of cutting-edge mobile applications.",
+                    ),
+                    SizedBox(height: kDefaultPadding * 1.5),
+                    Center(child: ExperienceCard(numOfExp: "4.4")),
+                    SizedBox(height: kDefaultPadding * 1.5),
+                    AboutSectionText(
+                      text:
+                          "I am a Passionate Cross Platform Application Developer with 4 Years of experience with skills in Dart and FlutterFramework. I am very eager to write android/IOS/Web/Windows applications following best code Practices, Architecture, tools, and technologies.",
+                    ),
+                  ],
+                )
+              : const Column(
+                children: [
+                  SectionTitle(
+                    color: Colors.purple,
+                    title: "About My Story",
+                    subTitle: "My Experience",
+                  ),
+                  SizedBox(height: kDefaultPadding * 1.5),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // AboutTextWithSign(),
+                        Expanded(
+                          child: AboutSectionText(
+                            text:
+                                "Flutter developer with 4 of experience in Flutter development. My expertise at UI design, proficient state management, and seamless cross-platform app deployment. I have a proven track record of consistently delivering high-quality, user-friendly applications on schedule. My skills and experience align perfectly with the needs of this position, ensuring successful development and deployment of cutting-edge mobile applications.",
+                          ),
+                        ),
+                        ExperienceCard(numOfExp: "4.4"),
+                        Expanded(
+                          child: AboutSectionText(
+                            text:
+                                "I am a Passionate Cross Platform Application Developer with 4 Years of experience with skills in Dart and FlutterFramework. I am very eager to write android/IOS/Web/Windows applications following best code Practices, Architecture, tools, and technologies.",
+                          ),
+                        ),
+                      ],
+                    ),
+                ],
               ),
-              ExperienceCard(numOfExp: "4.4"),
-              Expanded(
-                child: AboutSectionText(
-                  text:
-                      "I am a Passionate Cross Platform Application Developer with 4 Years of experience with skills in Dart and FlutterFramework. I am very eager to write android/IOS/Web/Windows applications following best code Practices, Architecture, tools, and technologies.",
-                ),
-              ),
-            ],
-          ),
           const SizedBox(height: kDefaultPadding * 3),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -100,7 +140,6 @@ class _AboutSectionState extends State<AboutSection> {
                 text: "Hire Me!",
                 press: () {
                   openWhatsApp();
-
                 },
               ),
               const SizedBox(width: kDefaultPadding * 1.5),

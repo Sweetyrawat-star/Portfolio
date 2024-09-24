@@ -23,9 +23,17 @@ class _MenuState extends State<Menu> {
 
   @override
   Widget build(BuildContext context) {
+    // Get the screen width
+    var screenWidth = MediaQuery.of(context).size.width;
+
+    // Adjust padding dynamically based on screen size
+    double horizontalPadding = screenWidth > 800
+        ? kDefaultPadding * 2.5
+        : kDefaultPadding;
+
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding * 2.5),
-      constraints: const BoxConstraints(maxWidth: 1110),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
+      constraints: BoxConstraints(maxWidth: screenWidth * 0.9),
       height: 100,
       decoration: BoxDecoration(
         color: Colors.white,
@@ -39,53 +47,59 @@ class _MenuState extends State<Menu> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(
           menuItems.length,
-              (index) => buildMenuItem(index),
+              (index) => Flexible(child: buildMenuItem(index, screenWidth)),
         ),
       ),
     );
   }
 
-  Widget buildMenuItem(int index) => InkWell(
-    onTap: () {
-      setState(() {
-        selectedIndex = index;
-      });
-      widget.onMenuItemClicked(index);
-    },
-    onHover: (value) {
-      setState(() {
-        value ? hoverIndex = index : hoverIndex = selectedIndex;
-      });
-    },
-    child: Container(
-      constraints: const BoxConstraints(minWidth: 122),
-      height: 100,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Text(
-            menuItems[index],
-            style: const TextStyle(fontSize: 20, color: kTextColor),
-          ),
-          // Hover
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 200),
-            left: 0,
-            right: 0,
-            bottom:
-            selectedIndex != index && hoverIndex == index ? -20 : -32,
-            child: Image.asset("assets/images/Hover.png"),
-          ),
-          // Select
-          AnimatedPositioned(
-            duration: const Duration(milliseconds: 200),
-            left: 0,
-            right: 0,
-            bottom: selectedIndex == index ? -2 : -32,
-            child: Image.asset("assets/images/Hover.png"),
-          ),
-        ],
+  Widget buildMenuItem(int index, double screenWidth) {
+    // Adjust font size based on screen width
+    double fontSize = screenWidth > 800 ? 20 : 13;
+
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
+        widget.onMenuItemClicked(index);
+      },
+      onHover: (value) {
+        setState(() {
+          value ? hoverIndex = index : hoverIndex = selectedIndex;
+        });
+      },
+      child: Container(
+        constraints: BoxConstraints(
+          minWidth: screenWidth > 800 ? 122 : 80, // Adjust width based on screen size
+        ),
+        height: 100,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              menuItems[index],
+              style: TextStyle(fontSize: fontSize, color: kTextColor),
+            ),
+            // Hover effect
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              left: 0,
+              right: 0,
+              bottom: selectedIndex != index && hoverIndex == index ? -20 : -32,
+              child: Image.asset("assets/images/Hover.png"),
+            ),
+            // Select effect
+            AnimatedPositioned(
+              duration: const Duration(milliseconds: 200),
+              left: 0,
+              right: 0,
+              bottom: selectedIndex == index ? -2 : -32,
+              child: Image.asset("assets/images/Hover.png"),
+            ),
+          ],
+        ),
       ),
-    ),
-  );
+    );
+  }
 }

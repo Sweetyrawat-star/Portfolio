@@ -23,11 +23,11 @@ class TopSection extends StatelessWidget {
       minHeight = 700;
     } else if (size.width > DeviceType.ipad.getMaxWidth()) {
       // Tablet
-      maxHeight = 600;
+      maxHeight = 750;
       minHeight = 500;
     } else {
       // Mobile
-      maxHeight = 400;
+      maxHeight = 450;
       minHeight = 300;
     }
 
@@ -57,6 +57,8 @@ class TopSection extends StatelessWidget {
             ),
             Positioned(
               bottom: 0,
+              left: 20,
+              right: 20,
               child: Menu(
                 onMenuItemClicked: onMenuItemClicked,
               ),

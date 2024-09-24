@@ -8,9 +8,11 @@ import 'components/service_card.dart';
 
 class ServiceSection extends StatelessWidget {
   const ServiceSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: kDefaultPadding * 2),
       constraints: const BoxConstraints(maxWidth: 1110),
@@ -21,16 +23,27 @@ class ServiceSection extends StatelessWidget {
             title: "Service Offerings",
             subTitle: "My Strong Areas",
           ),
-          size.width > DeviceType.smallScreenLaptop.getMaxWidth()? Wrap(
+          // If screen width is greater than iPad's max width, show in a Row, else use Wrap for mobile devices
+          size.width > DeviceType.ipad.getMaxWidth()
+              ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: List.generate(
+              services.length,
+                  (index) => Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ServiceCard(index: index),
+                ),
+              ),
+            ),
+          )
+              : Wrap(
             spacing: kDefaultPadding * 1.5,
             runSpacing: kDefaultPadding * 2.5,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            alignment: WrapAlignment.center,
             children: List.generate(
-                services.length, (index) => ServiceCard(index: index)),
-          ):Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(
-                  services.length, (index) => ServiceCard(index: index)
+              services.length,
+                  (index) => ServiceCard(index: index),
             ),
           ),
         ],
