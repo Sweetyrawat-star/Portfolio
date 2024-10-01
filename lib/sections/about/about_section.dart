@@ -132,27 +132,61 @@ class _AboutSectionState extends State<AboutSection> {
                 ],
               ),
           const SizedBox(height: kDefaultPadding * 3),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MyOutlineButton(
-                imageSrc: "assets/images/hand.png",
-                text: "Hire Me!",
-                press: () {
-                  openWhatsApp();
-                },
-              ),
-              const SizedBox(width: kDefaultPadding * 1.5),
-              DefaultButton(
-                imageSrc: "assets/images/download.png",
-                text: "Download CV",
-                press: () {
-                  downloadFile();
-                },
-              ),
-            ],
+      size.width > DeviceType.ipad.getMaxWidth() ?
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          MyOutlineButton(
+            height: 50,
+            width: 300,
+            imageSrc: "assets/images/hand.png",
+            text: "Hire Me!",
+            press: () {
+              openWhatsApp();
+            },
+          ),
+          const SizedBox(width: kDefaultPadding * 1.5),
+          SizedBox(
+            height: 50, // Set the same height as above
+            width: 300,  // Set the same width as above
+            child: DefaultButton(
+              imageSrc: "assets/images/download.png",
+              text: "Download CV",
+              press: () {
+                downloadFile();
+              },
+            ),
           ),
         ],
+      ) :
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          MyOutlineButton(
+            height: 50,
+            width: 300,
+            imageSrc: "assets/images/hand.png",
+            text: "Hire Me!",
+            press: () {
+              openWhatsApp();
+            },
+          ),
+          const SizedBox(height: kDefaultPadding * 1.5),
+          SizedBox(
+            height: 50, // Set the same height
+            width: 300,  // Set the same width
+            child: DefaultButton(
+              imageSrc: "assets/images/download.png",
+              text: "Download CV",
+              press: () {
+                downloadFile();
+              },
+            ),
+          ),
+        ],
+      )
+
+      ],
       ),
     );
   }
