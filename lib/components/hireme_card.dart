@@ -16,19 +16,25 @@ class _HireMeCardState extends State<HireMeCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double maxHeight, minHeight;
+    double maxHeight, minHeight,textHeader,miniHeader;
     if (size.width > DeviceType.largeScreenDesktop.getMaxWidth()) {
       // Web/Desktop
       maxHeight = 900;
       minHeight = 700;
+      textHeader = 42;
+      miniHeader = 16;
     } else if (size.width > DeviceType.ipad.getMaxWidth()) {
       // Tablet
       maxHeight = 600;
       minHeight = 500;
+      textHeader = 18;
+      miniHeader = 12;
     } else {
       // Mobile
+      textHeader = 16;
       maxHeight = 400;
       minHeight = 300;
+      miniHeader = 10;
     }
     return Padding(
       padding: const EdgeInsets.all(20.0),
@@ -55,19 +61,19 @@ class _HireMeCardState extends State<HireMeCard> {
                       child: VerticalDivider(),
                     ),
                   ),
-                  const Expanded(
+                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           "Starting New Project?",
                           style: TextStyle(
-                              fontSize: 42, fontWeight: FontWeight.bold),
+                              fontSize: textHeader, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: kDefaultPadding / 2),
                         Text(
                           "Get an estimate for the new project",
-                          style: TextStyle(fontWeight: FontWeight.w200),
+                          style: TextStyle(fontWeight: FontWeight.w200,fontSize: miniHeader),
                         )
                       ],
                     ),
@@ -91,18 +97,18 @@ class _HireMeCardState extends State<HireMeCard> {
                         width: 80,
                       ),
                       SizedBox(width: 20,),
-                      const Column(
+                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             "Starting New Project?",
                             style: TextStyle(
-                                fontSize: 32, fontWeight: FontWeight.bold),
+                                fontSize: textHeader, fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "Get an estimate for the new project",
-                            style: TextStyle(fontWeight: FontWeight.w200),
+                            style: TextStyle(fontWeight: FontWeight.w200,fontSize: miniHeader),
                           ),
                         ],
                       ),

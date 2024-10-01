@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:portfolio/components/app_extensions.dart';
+import 'package:portfolio/responsive_layout.dart';
 import 'package:universal_html/html.dart' as html;
 import '../../components/default_button.dart';
 import '../../components/section_title.dart';
@@ -43,6 +45,7 @@ class ContactBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       constraints: const BoxConstraints(maxWidth: 1110),
       margin: const EdgeInsets.only(top: kDefaultPadding * 2),
@@ -54,46 +57,88 @@ class ContactBox extends StatelessWidget {
           topRight: Radius.circular(20),
         ),
       ),
-      child: Wrap(
-        spacing: kDefaultPadding * 9.5,
-        runSpacing: kDefaultPadding * 1.5,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SocalCard(
-            color: const Color(0xFFD9FFFC),
-            iconSrc: "assets/images/skype.png",
-            name: 'Skype',
-            press: () {
-              html.window.open(
-                  SocialLinks.skype,
-                  '_blank');
+          size.width > DeviceType.ipad.getMaxWidth()? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SocalCard(
+                color: const Color(0xFFD9FFFC),
+                iconSrc: "assets/images/skype.png",
+                name: 'Skype',
+                press: () {
+                  html.window.open(
+                      SocialLinks.skype,
+                      '_blank');
 
-            },
-          ),
-          SocalCard(
-            color: const Color(0xFFE4FFC7),
-            iconSrc: "assets/images/fiverr.png",
-            name: 'Fiverr',
-            press: () {
-              html.window.open(
-                SocialLinks.fiverr,
-                '_blank');
+                },
+              ),
+              SocalCard(
+                color: const Color(0xFFE4FFC7),
+                iconSrc: "assets/images/fiverr.png",
+                name: 'Fiverr',
+                press: () {
+                  html.window.open(
+                      SocialLinks.fiverr,
+                      '_blank');
 
-            },
-          ),
-          SocalCard(
-            color: const Color(0xFFE8F0F9),
-            iconSrc: "assets/images/linkdein.png",
-            name: 'Linkdein',
-            press: () {
-              html.window.open(
-                  SocialLinks.linkedin,
-                  '_blank');
+                },
+              ),
+              SocalCard(
+                color: const Color(0xFFE8F0F9),
+                iconSrc: "assets/images/linkdein.png",
+                name: 'Linkdein',
+                press: () {
+                  html.window.open(
+                      SocialLinks.linkedin,
+                      '_blank');
 
-            },
+                },
+              ),
+            ],
+          ):Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SocalCard(
+                color: const Color(0xFFD9FFFC),
+                iconSrc: "assets/images/skype.png",
+                name: 'Skype',
+                press: () {
+                  html.window.open(
+                      SocialLinks.skype,
+                      '_blank');
+
+                },
+              ),
+              SizedBox(height: 20),
+              SocalCard(
+                color: const Color(0xFFE4FFC7),
+                iconSrc: "assets/images/fiverr.png",
+                name: 'Fiverr',
+                press: () {
+                  html.window.open(
+                    SocialLinks.fiverr,
+                    '_blank');
+
+                },
+              ),
+              SizedBox(height: 20),
+              SocalCard(
+                color: const Color(0xFFE8F0F9),
+                iconSrc: "assets/images/linkdein.png",
+                name: 'Linkdein',
+                press: () {
+                  html.window.open(
+                      SocialLinks.linkedin,
+                      '_blank');
+
+                },
+              ),
+            ],
           ),
           const SizedBox(height: kDefaultPadding * 2),
           const ContactForm(),
-
         ],
       ),
     );
@@ -246,6 +291,7 @@ class _ContactFormState extends State<ContactForm> {
             ),
           ),
           SizedBox(
+            width: 470,
             // height: 300,
             // TextField by default cover the height, i tryed to fix this problem but i cant
             child: TextFormField(

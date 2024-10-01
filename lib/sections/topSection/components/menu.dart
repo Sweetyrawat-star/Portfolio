@@ -34,7 +34,7 @@ class _MenuState extends State<Menu> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: horizontalPadding),
       constraints: BoxConstraints(maxWidth: screenWidth * 0.9),
-      height: 100,
+      height: screenWidth > 800?100: 80,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.only(
@@ -55,7 +55,7 @@ class _MenuState extends State<Menu> {
 
   Widget buildMenuItem(int index, double screenWidth) {
     // Adjust font size based on screen width
-    double fontSize = screenWidth > 800 ? 20 : 13;
+    double fontSize = screenWidth > 800 ? 20 : 10;
 
     return InkWell(
       onTap: () {
@@ -73,7 +73,7 @@ class _MenuState extends State<Menu> {
         constraints: BoxConstraints(
           minWidth: screenWidth > 800 ? 122 : 80, // Adjust width based on screen size
         ),
-        height: 100,
+        height: screenWidth > 800?100: 80,
         child: Stack(
           alignment: Alignment.center,
           children: [

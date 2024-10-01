@@ -10,14 +10,18 @@ import 'components/recent_work_card.dart';
 
 class RecentWorkSection extends StatelessWidget {
   const RecentWorkSection({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
+    // Calculate item width dynamically based on available screen width
+    int itemCountInRow = (size.width > 1110) ? 2 : 1; // Show 2 items in full view, 1 for smaller screens
+    double containerWidth = (itemCountInRow == 2) ? 500 : double.infinity;
+
     return Container(
       margin: const EdgeInsets.only(top: kDefaultPadding * 6),
       width: double.infinity,
-      // just for demo
-      // height: 600,
       decoration: BoxDecoration(
         color: const Color(0xFFF7E8FF).withOpacity(0.3),
         image: const DecorationImage(
@@ -39,49 +43,22 @@ class RecentWorkSection extends StatelessWidget {
           const SizedBox(height: kDefaultPadding * 1.5),
           SizedBox(
             width: 1110,
-            child: size.width < DeviceType.ipad.getMaxWidth()
-                ? Wrap(
-                    spacing: kDefaultPadding,
-                    runSpacing: kDefaultPadding * 2,
-                    children: List.generate(
-                      recentWorks.length,
-                      (index) => Padding(
-                        padding: const EdgeInsets.all(20.0),
-                        child: RecentWorkCard(index: index, press: () {}),
-                      ),
-                    ),
-                  )
-                : size.width < DeviceType.smallScreenLaptop.getMaxWidth()
-                    ? Wrap(
-                        spacing: kDefaultPadding * 2,
-                        runSpacing: kDefaultPadding * 3,
-                        children: List.generate(
-                          recentWorks.length,
-                          (index) => Padding(
-                            padding: const EdgeInsets.all(40.0),
-                            child: RecentWorkCard(index: index, press: () {}),
-                          ),
-                        ),
-                      ):size.width < DeviceType.mobile.getMaxWidth()
-                ? Wrap(
-              spacing: kDefaultPadding * 2,
-              runSpacing: kDefaultPadding * 3,
+            child: Wrap(
+              spacing: kDefaultPadding,
+              runSpacing: kDefaultPadding * 2,
+              //alignment: WrapAlignment.center, // Centers the items in the row
               children: List.generate(
                 recentWorks.length,
-                    (index) => Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: RecentWorkCard(index: index, press: () {}),
+                    (index) => Container(
+                  width: containerWidth, // Ensures each item has equal width
+                      padding: EdgeInsets.only(left: 20,right: 20),
+                  child: RecentWorkCard(
+                    index: index,
+                    press: () {},
+                  ),
                 ),
               ),
-            )
-                    : Wrap(
-                        spacing: kDefaultPadding,
-                        runSpacing: kDefaultPadding * 2,
-                        children: List.generate(
-                          recentWorks.length,
-                          (index) => RecentWorkCard(index: index, press: () {}),
-                        ),
-                      ),
+            ),
           ),
           const SizedBox(height: kDefaultPadding * 5),
         ],

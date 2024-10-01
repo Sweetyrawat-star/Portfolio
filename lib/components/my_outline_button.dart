@@ -7,11 +7,13 @@ class MyOutlineButton extends StatelessWidget {
     super.key,
     this.imageSrc,
     this.text,
-    this.press,
+    this.press, this.height, this.width,
   });
 
   final String? imageSrc;
   final String? text;
+  final double? height;
+  final double? width;
   final void Function()? press;
 
   @override
@@ -19,6 +21,7 @@ class MyOutlineButton extends StatelessWidget {
     return FittedBox(
       child: OutlinedButton(
         style: OutlinedButton.styleFrom(
+          maximumSize: Size(width!, height!),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50),
           ),
@@ -30,6 +33,7 @@ class MyOutlineButton extends StatelessWidget {
         ),
         onPressed: press,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Image.asset(
               imageSrc!,
