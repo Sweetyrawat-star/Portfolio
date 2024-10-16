@@ -31,17 +31,18 @@ class _SocalCardState extends State<SocalCard> {
     double minHeight;
     if (size.width > DeviceType.largeScreenDesktop.getMaxWidth()) {
       // Web/Desktop
-      minHeight = 200;
-      padding =  kDefaultPadding / 2;
+      minHeight = 250;
+      padding =  kDefaultPadding / 3;
       verticalPadding = kDefaultPadding * 1.0;
     } else if (size.width > DeviceType.ipad.getMaxWidth()) {
       // Tablet
       minHeight = 200;
-      padding =  kDefaultPadding / 2;
+      padding =  kDefaultPadding / 3;
       verticalPadding = kDefaultPadding * 1.0;
-    } else {
+    }
+    else {
       // Mobile
-      minHeight = 360;padding =  0;
+      minHeight = 400;padding =  0;
       verticalPadding = 0;
 
     }
@@ -55,7 +56,7 @@ class _SocalCardState extends State<SocalCard> {
           });
         },
         child: AnimatedContainer(
-          width: minHeight,
+          width: size.width < DeviceType.ipad.getMaxWidth() ?MediaQuery.of(context).size.width:minHeight,
           duration: const Duration(milliseconds: 200),
           padding: EdgeInsets.symmetric(
             vertical: padding!,

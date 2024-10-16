@@ -246,61 +246,44 @@ class _ContactFormState extends State<ContactForm> {
         spacing: kDefaultPadding * 2.5,
         runSpacing: kDefaultPadding * 1.5,
         children: [
-          SizedBox(
-            width: 470,
-            child: TextFormField(
-              controller: _nameController,
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                labelText: "Your Name",
-                hintText: "Enter Your Name",
-              ),
+          TextFormField(
+            controller: _nameController,
+            onChanged: (value) {},
+            decoration: InputDecoration(
+              labelText: "Your Name",
+              hintText: "Enter Your Name",
             ),
           ),
-          SizedBox(
-            width: 470,
-            child: TextFormField(
-              controller: _emailController,
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                labelText: "Email Address",
-                hintText: "Enter your email address",
-              ),
+          TextFormField(
+            controller: _emailController,
+            onChanged: (value) {},
+            decoration: InputDecoration(
+              labelText: "Email Address",
+              hintText: "Enter your email address",
             ),
           ),
-          SizedBox(
-            width: 470,
-            child: TextFormField(
-              controller: _projectTypeController,
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                labelText: "Project Type",
-                hintText: "Select Project Type",
-              ),
+          TextFormField(
+            controller: _projectTypeController,
+            onChanged: (value) {},
+            decoration: InputDecoration(
+              labelText: "Project Type",
+              hintText: "Select Project Type",
             ),
           ),
-          SizedBox(
-            width: 470,
-            child: TextFormField(
-              controller: _projectBudgetController,
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                labelText: "Project Budget",
-                hintText: "Select Project Budget",
-              ),
+          TextFormField(
+            controller: _projectBudgetController,
+            onChanged: (value) {},
+            decoration: InputDecoration(
+              labelText: "Project Budget",
+              hintText: "Select Project Budget",
             ),
           ),
-          SizedBox(
-            width: 470,
-            // height: 300,
-            // TextField by default cover the height, i tryed to fix this problem but i cant
-            child: TextFormField(
-              controller: _descriptionController,
-              onChanged: (value) {},
-              decoration: InputDecoration(
-                labelText: "Description",
-                hintText: "Write some description",
-              ),
+          TextFormField(
+            controller: _descriptionController,
+            onChanged: (value) {},
+            decoration: InputDecoration(
+              labelText: "Description",
+              hintText: "Write some description",
             ),
           ),
           SizedBox(height: kDefaultPadding * 2),

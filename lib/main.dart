@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/splash/Onboarding_Page.dart';
 import 'constants.dart';
 import 'home_screen.dart';
 
@@ -19,6 +20,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    precacheImage(NetworkImage('assets/images/developer.png'), context);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sweety Rawat',
@@ -26,7 +28,7 @@ class MyApp extends StatelessWidget {
         inputDecorationTheme: kDefaultInputDecorationTheme,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: const HomeScreen(),
+      home: const SplashScreen(),
     );
   }
 }

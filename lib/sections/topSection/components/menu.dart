@@ -55,7 +55,7 @@ class _MenuState extends State<Menu> {
 
   Widget buildMenuItem(int index, double screenWidth) {
     // Adjust font size based on screen width
-    double fontSize = screenWidth > 800 ? 20 : 10;
+    double fontSize = screenWidth > 800 ? 20 : 12;
 
     return InkWell(
       onTap: () {
